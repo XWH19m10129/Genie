@@ -87,7 +87,9 @@ def clear_cache() -> None:
 
 def _get_cache_key(text: str, method: str) -> str:
     """Generate a cache key for a text and method combination."""
-    return f"{method}:{hash(text)}"
+    import hashlib
+    text_hash = hashlib.sha256(text.encode('utf-8')).hexdigest()
+    return f"{method}:{text_hash}"
 
 
 def _openai_available() -> bool:

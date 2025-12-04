@@ -274,7 +274,7 @@ class TestOpenAIIntegration(unittest.TestCase):
             cls.has_openai = False
     
     @unittest.skipUnless(
-        os.environ.get("OPENAI_API_KEY") and True,
+        os.environ.get("OPENAI_API_KEY"),
         "OpenAI API key not set"
     )
     def test_openai_embedding(self):
