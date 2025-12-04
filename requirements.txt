@@ -1,0 +1,19 @@
+# Core dependencies for text similarity module
+numpy>=1.19.0
+
+# OpenAI embeddings (recommended for best results)
+# Set OPENAI_API_KEY environment variable to use
+openai>=1.0.0
+
+# Local embedding model (fallback when OpenAI is unavailable)
+# Note: sentence-transformers requires torch
+sentence-transformers>=2.2.0
+
+# PyTorch - required by sentence-transformers
+# Install appropriate version for your system:
+#   CPU only: pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   With CUDA: pip install torch (will auto-detect CUDA version)
+torch>=1.9.0
+
+# Optional: scikit-learn for additional similarity metrics
+# scikit-learn>=1.0.0

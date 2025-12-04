@@ -259,6 +259,111 @@ Explanation:
 ---
 
 
+## Text Similarity Detection
+
+Genie includes a text similarity module for comparing semantic similarity between texts using embeddings.
+
+### Installation
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+**Note:** The similarity module uses OpenAI embeddings (text-embedding-3-large) by default, with automatic fallback to local sentence-transformers model (all-MiniLM-L6-v2) if OpenAI is unavailable.
+
+### Setup
+
+Set your OpenAI API key (recommended for best results):
+
+```bash
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+If the OpenAI API key is not set or the request fails, the module automatically falls back to the local sentence-transformers model.
+
+### Usage
+
+#### Python API
+
+```python
+from genie.similarity import is_semantic_similar, get_embedding, cosine_similarity
+
+# Check if two texts are semantically similar
+result = is_semantic_similar("The cat sat on the mat", "A cat is sitting on a mat")
+print(result)
+# {'score': 0.92, 'similar': True, 'method': 'openai'}
+
+# Get embedding for a text
+embedding, method = get_embedding("Hello world")
+print(f"Embedding dimension: {len(embedding)}, method: {method}")
+
+# Calculate cosine similarity between two vectors
+similarity = cosine_similarity(embedding1, embedding2)
+```
+
+#### Command Line Tool
+
+Compare two text files:
+
+```bash
+python scripts/compare_views.py file1.txt file2.txt
+```
+
+Output as JSON:
+
+```bash
+python scripts/compare_views.py file1.txt file2.txt --json
+```
+
+Use a custom similarity threshold (default is 0.8):
+
+```bash
+python scripts/compare_views.py file1.txt file2.txt --threshold 0.9
+```
+
+Read texts interactively from stdin:
+
+```bash
+python scripts/compare_views.py --stdin
+```
+
+Clear the embedding cache:
+
+```bash
+python scripts/compare_views.py --clear-cache
+```
+
+### Threshold Recommendations
+
+- **0.9+**: Very high similarity (nearly identical meaning)
+- **0.8**: Default threshold (semantically similar)
+- **0.7**: Moderate similarity (related topics)
+- **0.6**: Low similarity (loosely related)
+
+Adjust the threshold based on your use case:
+- For strict matching (e.g., duplicate detection): use 0.9+
+- For general semantic similarity: use 0.8 (default)
+- For topic relatedness: use 0.6-0.7
+
+### Caching
+
+Embeddings are cached to reduce API costs and improve performance. The cache is stored in `embeddings_cache.json`.
+
+To disable caching:
+```python
+result = is_semantic_similar(text1, text2, use_cache=False)
+```
+
+To clear the cache:
+```python
+from genie.similarity import clear_cache
+clear_cache()
+```
+
+---
+
 ## Contacts
 
 * [Ting Su](http://tingsu.github.io/) 
