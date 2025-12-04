@@ -13,7 +13,8 @@ sentence-transformers>=2.2.0
 # Install appropriate version for your system:
 #   CPU only: pip install torch --index-url https://download.pytorch.org/whl/cpu
 #   With CUDA: pip install torch (will auto-detect CUDA version)
-torch>=1.9.0
+# Version 2.6.0+ required for security patches
+torch>=2.6.0
 
 # Optional: scikit-learn for additional similarity metrics
 # scikit-learn>=1.0.0
